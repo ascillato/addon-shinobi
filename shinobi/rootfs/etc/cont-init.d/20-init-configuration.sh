@@ -19,7 +19,7 @@ fi
 if ! hass.file_exists '/data/conf.json'; then
     CONFIG=$(</opt/shinobi/conf.sample.json)
 
-    CONFIG=$(hass.jq "${CONFIG}" ".cpuUsageMarker=\"cpu\"")
+    CONFIG=$(hass.jq "${CONFIG}" ".cpuUsageMarker=\"CPU\"")
     CONFIG=$(hass.jq "${CONFIG}" ".port=80")
     CONFIG=$(hass.jq "${CONFIG}" ".videosDir=\"/share/shinobi/\"")
 
