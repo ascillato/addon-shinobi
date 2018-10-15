@@ -1,35 +1,39 @@
-ARG BUILD_FROM=hassioaddons/base-amd64:1.4.2
+ARG BUILD_FROM=hassioaddons/base:2.3.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
+# Set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Setup base
-# hadolint ignore=DL3003
+# hadolint ignore=DL3003,DL3016
 RUN \
     apk add --no-cache --virtual .build-dependencies \
-        git=2.15.2-r0 \
-        g++=6.4.0-r5 \
-        make=4.2.1-r0 \
-        build-base=0.5-r0 \
-        openssl-dev=1.0.2o-r0 \
-        python2-dev=2.7.14-r2 \
+        build-base=0.5-r1 \
+        g++=6.4.0-r9 \
+        git=2.18.0-r0 \
         jpeg-dev=8-r6 \
-        pkgconf=1.3.10-r0 \
-        yarn=1.3.2-r0 \
+        make=4.2.1-r2 \
+        npm=8.11.4-r0 \
+        openssl-dev=1.0.2p-r0 \
+        pkgconf=1.5.3-r0 \
+        python2-dev=2.7.15-r1 \
+        yarn=1.7.0-r0 \
     \
     && apk add --no-cache \
-        nodejs=8.9.3-r1 \
-        ffmpeg=3.4-r1 \
-        python2=2.7.14-r2 \
-        sqlite=3.21.0-r1 \
-        socat=1.7.3.2-r3 \
-        ttf-freefont=20120503-r0 \
-        mysql-client=10.1.32-r0 \
-        x264=20170930-r0 \
-        x265=2.5-r0 \
+        ffmpeg=3.4.4-r1 \
+        mysql-client=10.2.15-r0 \
+        nodejs=8.11.4-r0 \
+        python2=2.7.15-r1 \
+        socat=1.7.3.2-r4 \
+        sqlite=3.24.0-r0 \
+        ttf-freefont=20120503-r1 \
+        x264=20180304-r1 \
+        x265=2.7-r1 \
     \
     && git clone -b master --single-branch \
-        https://github.com/ShinobiCCTV/Shinobi.git /opt/shinobi/ \
-    && git -C /opt/shinobi checkout 4d00c910f756167e8b04bd4a3795c2ffda3e823c \
+        https://gitlab.com/Shinobi-Systems/Shinobi.git /opt/shinobi/ \
+    && git -C /opt/shinobi checkout 7134e06a9ca032f363193063cf8ede8cd6d067cc \
     && git -C /opt/shinobi reflog expire --expire=now --all \
     && git -C /opt/shinobi gc --prune=now --aggressive \
     \
